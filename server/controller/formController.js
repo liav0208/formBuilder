@@ -22,3 +22,14 @@ exports.getForms = async (req, res) => {
 
   res.status(200).send(forms);
 };
+
+exports.getFormById = async (req, res) => {
+  const formId = req.params.id;
+
+  const form = await Form.findById(formId);
+  if (!form) {
+    return res.status(404).send("No form with the current id was fount");
+  }
+
+  res.status(200).send(form);
+};
