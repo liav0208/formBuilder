@@ -14,3 +14,11 @@ exports.saveForm = async (req, res) => {
 
   res.status(200).send(form);
 };
+
+exports.getForms = async (req, res) => {
+  const forms = await Form.find();
+
+  console.log(forms);
+
+  res.status(200).send(forms);
+};

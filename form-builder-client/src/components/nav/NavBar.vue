@@ -3,10 +3,10 @@
     <h1 class="nav-brand">FormBuilder</h1>
     <ul class="navbar">
       <li class="nav-item">
-        <a class="nav-link" href="">Build</a>
+        <router-link class="nav-link" to="/build">Build</router-link>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">List</a>
+        <router-link class="nav-link" to="/list">List</router-link>
       </li>
     </ul>
   </nav>
@@ -45,7 +45,8 @@
     border-radius: .4rem;
   }
 
-  .nav-link:hover{
+  .nav-link:hover,
+  .router-link-active{
     background-color: rgba(255, 255, 255, .4);
 
   }

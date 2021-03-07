@@ -15,7 +15,7 @@
           <label for="title">Enter form title</label>
           <input type="text" name="title" id="title" v-model="title" ref="title">
         </div>
-      <base-button @click="sendForm">Save Form</base-button>
+      <base-button>Save Form</base-button>
       </form>
     </div>
     <add-field @send-field="addField"></add-field>
@@ -58,7 +58,7 @@ export default {
             title: this.title,
             fields: this.fields
           })
-        }).then(res => console.log(res))
+        }).then( () => this.$router.push('/list'))
       }
     }
   }
