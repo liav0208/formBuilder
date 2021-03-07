@@ -25,6 +25,7 @@
 <script>
 import AddField from "./AddField.vue"
 import FieldItem from "./FieldItem.vue"
+
 export default {
   components: {
     AddField,
@@ -47,8 +48,18 @@ export default {
     sendForm(){
       if(this.title === ''){
         this.$refs.title.focus()
+      }else{
+        fetch('http://localhost:3000/form', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: this.title,
+            fields: this.fields
+          })
+        }).then(res => console.log(res))
       }
-      
     }
   }
 }
