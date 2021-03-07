@@ -11,11 +11,11 @@
     cursor: pointer;
     font-size: 1rem;
     color: #fff;
-    background-color: #b4aee8;
+    background-color: #a6e3e9;
   }
 
   button:hover{
-    background-color: #a7a2d4;
+    background-color: #71c9ce;
 
   }
 

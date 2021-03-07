@@ -38,7 +38,13 @@ export default {
       }else if(this.qLabel === ''){
         return this.$refs.qLabel.focus()
       }
+      
+      this.qName = this.qName.split(' ').join('-');
+
       this.$emit('send-field', this.qName, this.qLabel, this.qType)
+      this.qName = ''
+      this.qLabel = ''
+      this.qType = 'text'
     }
   },
   emits:['send-field']
@@ -48,8 +54,12 @@ export default {
 <style scoped>
   form{
     padding: 2rem;
-    border: 4px solid #ffe3fe;
+    border: 4px solid #cbf1f5;
     border-radius: 1rem;
+    background-color: #fff;
+    width: 60rem;
+    margin-top: 2rem;
+    ;
   }
 
   .form-control{
@@ -69,10 +79,12 @@ export default {
     border: none;
     border-bottom: 1px solid #ccc;
     margin-left: 1rem;
+    width: 50%;
   }
 
   select{ 
     margin-left: 1rem;
+    margin-top: .6rem;
     font-size: 1.2rem;
     border: none;
     border-bottom: 1px solid #ccc;

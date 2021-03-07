@@ -15,7 +15,7 @@
 <style scoped>
   nav{
     width: 100%;
-    background: #ffe3fe;
+    background: #71c9ce;
     padding: 1.4rem 3rem;
     display: flex;
     justify-content: space-between;
