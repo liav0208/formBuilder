@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "project": "concurrently \"npm run start\" \"cd ../form-builder-client && npm run serve\""
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
