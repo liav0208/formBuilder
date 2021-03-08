@@ -26,7 +26,7 @@
         ></form-item>
       </tbody>
     </table>
-    <div class="pagination">
+    <div class="pagination" v-show="forms.length">
       <base-button :block='blockPrev' @click="pagination('previous')">Previous</base-button>
       <base-button :block='blockNext' @click="pagination('next')">Next</base-button>
     </div>
@@ -71,8 +71,6 @@ export default {
       .catch(() => {
         this.isLoading= false;
       })
-
-      console.log(this.blockNext, this.forms.length);
     }
   },
   mounted(){
