@@ -1,5 +1,5 @@
 <template>
-  <form action="" @submit.prevent="submitForm">
+  <form action="" @submit.prevent="submitForm" class="add-field-form" autocomplete="off">
     <div class="form-control">
       <label for="qName">Please enter your question name:</label>
       <input type="text" id="qName" name="qName" v-model.trim="qName" ref="qName">
@@ -52,14 +52,14 @@ export default {
 </script>
 
 <style scoped>
-  form{
+  form.add-field-form{
     padding: 2rem;
     border: 4px solid #cbf1f5;
     border-radius: 1rem;
     background-color: #fff;
-    width: 60rem;
+    width: 50%;
     margin-top: 2rem;
-    ;
+    margin-bottom: 3rem;
   }
 
   .form-control{
@@ -80,6 +80,7 @@ export default {
     border-bottom: 1px solid #ccc;
     margin-left: 1rem;
     width: 50%;
+    transition: all .3s;
   }
 
   select{ 
@@ -89,13 +90,12 @@ export default {
     border: none;
     border-bottom: 1px solid #ccc;
     width: 50%;
-
   }
 
   select:focus,
   input:focus{
     outline: none;
-    border-color: #0D6EFD;
+    border-bottom: 5px solid #0D6EFD;
   }
 
 </style>

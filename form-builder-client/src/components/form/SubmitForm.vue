@@ -39,7 +39,7 @@ export default {
     sendDetails(){
       for(let key in this.$refs){
         if(this.$refs[key].input.length === 0){
-          this.$toast.error('Please comlete the form fields')
+          this.$toast.error('Please complete the form fields')
           return;
         }
       }

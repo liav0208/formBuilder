@@ -58,7 +58,10 @@ export default {
             title: this.title,
             fields: this.fields
           })
-        }).then( () => this.$router.push('/list'))
+        }).then( () => {
+          this.$toast.show('Form send successfully')
+          this.$router.push('/list')
+        }).catch(() => this.$toast.error('Sorry, error occurred please try again later'))
       }
     }
   }
@@ -77,11 +80,10 @@ export default {
   }
 
   .field-container{
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
     border-radius: 1rem;
     padding: 2rem;
     width: 60%;
-    min-width: 60rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -110,10 +112,12 @@ export default {
     border: none;
     border-bottom: 1px solid #ccc;
     font-size: 1.2rem;
+    transition: all .3s;
   }
 
   input:focus{
     outline: none;
+    border-bottom: 5px solid #0D6EFD;
   }
 
 </style>

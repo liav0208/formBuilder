@@ -1,8 +1,14 @@
 <template>
-  <button>
+  <button :class="mode">
     <slot></slot>
   </button>
 </template>
+
+<script>
+export default {
+  props: ['mode']
+}
+</script>
 
 <style scoped>
   button{
@@ -11,16 +17,28 @@
     cursor: pointer;
     font-size: 1rem;
     color: #fff;
-    background-color: #a6e3e9;
+    background-color: #90f2ff;
+    transition: all .2s;
   }
 
   button:hover{
-    background-color: #71c9ce;
+    background-color: #6eb6ff;
 
   }
 
   button:focus,
   button:active{
     outline: none;
+  }
+
+  .rounded{
+    border-radius: 50%;
+    background-color: #f12b6b;
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .rounded:hover{
+    background-color: #ff467e;
   }
 </style>

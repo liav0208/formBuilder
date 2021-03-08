@@ -9,7 +9,7 @@
      </div>
     </div>
     <div class="actions">
-      <base-button @click="removeField"><i class="fas fa-trash-alt"></i></base-button>
+      <base-button @click="removeField" mode="rounded"><i class="fas fa-trash-alt"></i></base-button>
     </div>
   </div>
 </template>

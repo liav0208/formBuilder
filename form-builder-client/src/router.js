@@ -14,6 +14,12 @@ const router = createRouter({
     { path: "/form/:formId", component: SubmitForm, props: true },
     { path: "/build", component: FormBuilder },
   ],
+  scrollBehavior(_, _2, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { left: 0, top: 0 };
+  },
 });
 
 export default router;

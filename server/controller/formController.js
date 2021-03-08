@@ -6,7 +6,7 @@ exports.saveForm = async (req, res) => {
     res.status(400).send("Please enter valid Title and Fields");
   }
 
-  const form = new Form({
+  form = new Form({
     title: req.body.title,
     fields: req.body.fields,
   });
@@ -34,6 +34,9 @@ exports.getFormById = async (req, res) => {
 };
 
 exports.submitFormInputs = async (req, res) => {
+  if (req.body.input.length === 0)
+    return res.status(404).send("Please Fill the data");
+
   const submit = new Submit({
     data: req.body.input,
     form_id: req.params.id,
@@ -43,7 +46,18 @@ exports.submitFormInputs = async (req, res) => {
     $inc: { submissions: 1 },
   });
 
+  if (!form) return res.status(404).send("Form id not exist");
+
   await submit.save();
 
   res.status(200).send(submit);
+};
+
+exports.orderBy = async (req, res) => {
+  const order = req.params.order;
+  const forms = await Form.find({}).sort(`-${order}`);
+
+  if (!forms.length) return res.status(404).send("No forms available");
+
+  res.status(200).send(forms);
 };
