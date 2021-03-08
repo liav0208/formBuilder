@@ -61,7 +61,8 @@ export default {
         }).then( () => {
           this.$toast.show('Form send successfully')
           this.$router.push('/list')
-        }).catch(() => this.$toast.error('Sorry, error occurred please try again later'))
+        }).catch(() => {
+          this.$toast.error('Sorry, error occurred please try again later')})
       }
     }
   }

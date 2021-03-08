@@ -3,10 +3,11 @@
     <h1 class="main-title">Welcome to Form Builder</h1>
     <h3 class="sub-title">The perfect place for create your survey and let people fill it</h3>
     <div class="order-buttons" v-show="forms.length">
-      <base-button @click="orderBy('createdAt')">Order By date</base-button>
+      <base-button  @click="orderBy('createdAt')">Order By date</base-button>
       <base-button @click="orderBy('submissions')">Order By submissions</base-button>
     </div>
-    <h3 class="no-data" v-if="forms.length === 0">Sorry something went wrong, please try again later..</h3>
+    <h3 class="no-data" v-if="forms.length === 0">No lists yet...</h3>
+    <h3 class="no-data" v-else-if="noRespond">Sorry something went wrong, please try again later..</h3>
     <table v-else>
       <thead>
         <tr>
@@ -25,6 +26,10 @@
         ></form-item>
       </tbody>
     </table>
+    <div class="pagination">
+      <base-button :block='blockPrev' @click="pagination('previous')">Previous</base-button>
+      <base-button :block='blockNext' @click="pagination('next')">Next</base-button>
+    </div>
   </div>
 </template>
 
@@ -38,18 +43,41 @@ export default {
     return {
       forms: [],
       isLoading: true,
+      noRespond: false,
+      orderListBy: 'createdAt',
+      page: 0,
+      blockPrev: false,
+      blockNext: false
     }
   },
   methods: {
     orderBy(order){
+      this.orderListBy = order;
       fetch(`http://localhost:3000/form/orderBy/${order}`)
       .then(res => res.json())
       .then(res => this.forms = res)
       .catch( () => this.$toast.error('Error occurred'))
+    },
+    pagination(action){
+      action === 'next' ? this.page = this.page += 5 : this.page = this.page -= 5;
+      this.page === 0 ? this.blockPrev = true : this.blockPrev = false;
+      fetch(`http://localhost:3000/form/list/${this.orderListBy}?skip=${this.page}`)
+      .then(res => res.json())
+      .then(res => {
+        this.isLoading= false;
+        this.forms = res
+        res.length % 5 !== 0 ? this.blockNext = true : this.blockNext = false;
+        })
+      .catch(() => {
+        this.isLoading= false;
+      })
+
+      console.log(this.blockNext, this.forms.length);
     }
   },
   mounted(){
-    fetch('http://localhost:3000/form')
+    this.page === 0 ? this.blockPrev = true : this.blockPrev = false;
+    fetch(`http://localhost:3000/form/list/${this.orderListBy}?skip=${this.page}`)
       .then(res => res.json())
       .then(res => {
         this.isLoading= false;
@@ -57,6 +85,7 @@ export default {
         })
       .catch(() => {
         this.isLoading= false;
+        this.noRespond = true;
       })
 
   }
@@ -71,6 +100,7 @@ export default {
     flex-direction: column;
     background-color: #e3fdfd;
     min-height: 100vh;
+    position: relative;
   }
 
   .main-title{
@@ -78,6 +108,12 @@ export default {
   }
   .sub-title{
     font-size: 2rem;
+  }
+
+  .order-buttons{
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   table{
@@ -98,4 +134,10 @@ export default {
     margin-top: 4rem;
     font-size: 2.5rem;
   }
+
+  .pagination{
+    position: relative;
+    top: 4rem;
+  }
+
 </style>

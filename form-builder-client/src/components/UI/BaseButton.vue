@@ -1,12 +1,12 @@
 <template>
-  <button :class="mode">
+  <button :disabled="block" :class="mode">
     <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  props: ['mode']
+  props: ['mode', 'block']
 }
 </script>
 
@@ -29,6 +29,10 @@ export default {
   button:focus,
   button:active{
     outline: none;
+  }
+
+  button:disabled{
+    background-color: #ccc;
   }
 
   .rounded{

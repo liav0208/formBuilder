@@ -17,7 +17,10 @@ exports.saveForm = async (req, res) => {
 };
 
 exports.getForms = async (req, res) => {
-  const forms = await Form.find();
+  const orderBy = req.params.order;
+  const skip = +req.query.skip;
+
+  const forms = await Form.find({}).sort(`-${orderBy}`).skip(skip).limit(5);
 
   res.status(200).send(forms);
 };
@@ -55,7 +58,7 @@ exports.submitFormInputs = async (req, res) => {
 
 exports.orderBy = async (req, res) => {
   const order = req.params.order;
-  const forms = await Form.find({}).sort(`-${order}`);
+  const forms = await Form.find({}).sort(`-${order}`).limit(5);
 
   if (!forms.length) return res.status(404).send("No forms available");
 
