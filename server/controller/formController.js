@@ -1,4 +1,5 @@
 const { Form } = require("../models/formModel");
+const { Submit } = require("../models/submitModel");
 
 exports.saveForm = async (req, res) => {
   if (req.body.title === "" || req.body.fields.length === 0) {
@@ -18,8 +19,6 @@ exports.saveForm = async (req, res) => {
 exports.getForms = async (req, res) => {
   const forms = await Form.find();
 
-  console.log(forms);
-
   res.status(200).send(forms);
 };
 
@@ -32,4 +31,19 @@ exports.getFormById = async (req, res) => {
   }
 
   res.status(200).send(form);
+};
+
+exports.submitFormInputs = async (req, res) => {
+  const submit = new Submit({
+    data: req.body.input,
+    form_id: req.params.id,
+  });
+
+  const form = await Form.findByIdAndUpdate(req.params.id, {
+    $inc: { submissions: 1 },
+  });
+
+  await submit.save();
+
+  res.status(200).send(submit);
 };

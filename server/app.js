@@ -8,6 +8,7 @@ mongoose
   .connect("mongodb://localhost:27017/formBuilderDB", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((res) => console.log("Connect to mongo"))
   .catch((err) => console.log(err));

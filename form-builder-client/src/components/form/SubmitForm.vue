@@ -8,6 +8,7 @@
       :name="field.name"
       :label="field.label"
       @send-input="saveFieldInput"
+      :ref="field.name"
       ></form-field>
       <base-button>SUBMIT</base-button>
     </form>
@@ -36,7 +37,26 @@ export default {
   },
   methods: {
     sendDetails(){
-      console.log('s');
+      for(let key in this.$refs){
+        if(this.$refs[key].input.length === 0){
+          this.$toast.error('Please comlete the form fields')
+          return;
+        }
+      }
+      fetch(`http://localhost:3000/form/submit/${this.formId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          input: this.inputs
+        })
+      })
+      .then(() => {
+        this.$toast.show('Thank you')
+        this.$router.push('/list')
+        })
+      .catch(err => console.log(err))
     },
     saveFieldInput(fieldName, fieldInput){
       let exist = false;
@@ -51,7 +71,7 @@ export default {
         obj[fieldName] = fieldInput
         this.inputs.push(obj)
       }
-    }
+    },
   }
 }
 </script>
