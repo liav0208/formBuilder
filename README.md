@@ -23,3 +23,7 @@ this command will set the database, run the server and run the Vue application.
 In order to set the database i use the command `mongorestore`.
 in case you dont have **MongoDB Database Tools** it may not work,
 but the database files stored in directory in the main folder named **formBuilderDB**
+
+To run multiple commands in one command i use the **concurrently** package.
+in case you dont have this package on you computer please install it with this command:
+`npm i -g concurrently`
